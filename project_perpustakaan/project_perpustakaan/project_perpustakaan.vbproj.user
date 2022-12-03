@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="array.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="daftar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="hapusKoleksi.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="infoTambahKoleksi.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="login.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="perpustakaan.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="tambahKoleksi.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="updateKoleksi.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
