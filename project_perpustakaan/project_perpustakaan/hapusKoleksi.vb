@@ -1,12 +1,12 @@
 ﻿Public Class hapusKoleksi
-    Dim selected = perpustakaan.DataGridKoleksi.
+    'Dim selected = perpustakaan.DataGridKoleksi.
     Public Sub New()
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        LblSelectedName.Text = selected
+        'LblSelectedName.Text = selected
     End Sub
 
     Private Sub BtnHapus_Click(sender As Object, e As EventArgs) Handles BtnHapus.Click

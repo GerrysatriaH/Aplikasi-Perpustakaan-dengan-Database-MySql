@@ -5,7 +5,10 @@ Public Class perpustakaan
 
     Dim selected As String
     Public Shared selectedTableKoleksi
-    Public Shared selectedTableKoleksiNama 
+    Public Shared selectedTableKoleksiNama
+
+    Dim selectedRow As DataGridViewRow
+
     Public Sub New()
 
         ' This call is required by the designer.
@@ -68,14 +71,13 @@ Public Class perpustakaan
         'For Each koll In koleksi.getKoleksiItem
         '    LBKoleksiBuku.Items.Add(koll)
         'Next
-        'UpdateDataTableArrayList()
+        'UpdateDataTableArrayList()s
         ReloadDataTableDatabase()
     End Sub
 
     Private Sub DataGridKoleksi_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridKoleksi.CellClick
         'selectedTableKoleksi = DataGridKoleksi.CurrentRow.Index
         Dim index As Integer = e.RowIndex
-        Dim selectedRow As DataGridViewRow
         selectedRow = DataGridKoleksi.Rows(index)
 
         selectedTableKoleksi = selectedRow.Cells(0).Value
@@ -135,7 +137,13 @@ Public Class perpustakaan
 
     Private Sub BtnRemove_Click(sender As Object, e As EventArgs) Handles BtnRemove.Click
         Dim formhapus = New hapusKoleksi()
-        formhapus.Show()
+        selectedTableKoleksiNama = selectedRow.Cells(1).Value
+        If selectedTableKoleksiNama IsNot Nothing Then
+            formhapus.LblSelectedName.Text = selectedTableKoleksiNama
+            formhapus.Show()
+        Else
+            MessageBox.Show("Pilih Koleksi yang ingin dihapus")
+        End If
     End Sub
 
     Private Sub BtnSelect_Click(sender As Object, e As EventArgs) Handles BtnSelect.Click
