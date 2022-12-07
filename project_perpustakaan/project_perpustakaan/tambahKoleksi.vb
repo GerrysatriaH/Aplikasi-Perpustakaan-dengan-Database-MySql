@@ -33,11 +33,21 @@ Public Class tambahKoleksi
         perpustakaan.koleksi.jenisKoleksiProperty = CBJenisKoleksi.SelectedItem().ToString()
         perpustakaan.koleksi.deskripsiKoleksiProperty = RTBDeskripsi.Text.ToString()
         perpustakaan.koleksi.penerbitProperty = TxtPenerbit.Text.ToString()
-        perpustakaan.koleksi.tahunTerbitProperty = Integer.Parse(TxtTahunTerbit.Text)
+
+        If TxtTahunTerbit.Text = "" Then
+            MessageBox.Show("Tahun Terbit tidak boleh kosong !!")
+        Else
+            perpustakaan.koleksi.tahunTerbitProperty = Integer.Parse(TxtTahunTerbit.Text)
+        End If
 
         perpustakaan.koleksi.lokasiProperty = TxtLokasirRak.Text.ToString()
         perpustakaan.koleksi.tanggalMasukKoleksiProperty = DateMasukKoleksi.Value.ToShortDateString()
-        perpustakaan.koleksi.stockProperty = Integer.Parse(TxtStok.Text)
+
+        If TxtStok.Text = "" Then
+            MessageBox.Show("Stok tidak boleh kosong !!")
+        Else
+            perpustakaan.koleksi.stockProperty = Integer.Parse(TxtStok.Text)
+        End If
 
         If RBIndonesia.Checked Then
             perpustakaan.koleksi.bahasaProperty = "Indonesia"
@@ -63,23 +73,28 @@ Public Class tambahKoleksi
 
         perpustakaan.koleksi.AddKoleksi(TxtNamaKoleksi.Text.ToString())
 
-        Dim convertedKoleksi = perpustakaan.koleksi.ConvertKoleksiToString(perpustakaan.koleksi.getKategoriItem)
-        perpustakaan.koleksi.AddDataKoleksiDatabase(perpustakaan.koleksi.dirGambarBukuProperty,
-                                                    perpustakaan.koleksi.namaKoleksiProperty,
-                                                    perpustakaan.koleksi.jenisKoleksiProperty,
-                                                    perpustakaan.koleksi.penerbitProperty,
-                                                    perpustakaan.koleksi.deskripsiKoleksiProperty,
-                                                    perpustakaan.koleksi.tahunTerbitProperty,
-                                                    perpustakaan.koleksi.lokasiProperty,
-                                                    perpustakaan.koleksi.tanggalMasukKoleksiProperty,
-                                                    perpustakaan.koleksi.stockProperty,
-                                                    perpustakaan.koleksi.bahasaProperty,
-                                                    convertedKoleksi
-                                                   )
-        Dim infoTambah = New infoTambahKoleksi()
 
-        infoTambah.Show()
-        Me.Close()
+        If perpustakaan.koleksi.dirGambarBukuProperty IsNot Nothing Then
+            Dim convertedKoleksi = perpustakaan.koleksi.ConvertKoleksiToString(perpustakaan.koleksi.getKategoriItem)
+            perpustakaan.koleksi.AddDataKoleksiDatabase(perpustakaan.koleksi.dirGambarBukuProperty,
+                                                        perpustakaan.koleksi.namaKoleksiProperty,
+                                                        perpustakaan.koleksi.jenisKoleksiProperty,
+                                                        perpustakaan.koleksi.penerbitProperty,
+                                                        perpustakaan.koleksi.deskripsiKoleksiProperty,
+                                                        perpustakaan.koleksi.tahunTerbitProperty,
+                                                        perpustakaan.koleksi.lokasiProperty,
+                                                        perpustakaan.koleksi.tanggalMasukKoleksiProperty,
+                                                        perpustakaan.koleksi.stockProperty,
+                                                        perpustakaan.koleksi.bahasaProperty,
+                                                        convertedKoleksi
+                                                      )
+            Dim infoTambah = New infoTambahKoleksi()
+
+            infoTambah.Show()
+            Me.Close()
+        Else
+            MessageBox.Show("Masukkan Gambar terlebih dahulu")
+        End If
     End Sub
 
     Private Sub TxtTahunTerbit_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TxtTahunTerbit.KeyPress

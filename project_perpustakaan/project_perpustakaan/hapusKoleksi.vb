@@ -10,8 +10,8 @@
     End Sub
 
     Private Sub BtnHapus_Click(sender As Object, e As EventArgs) Handles BtnHapus.Click
-        'Dim hapus_item = perpustakaan.LBKoleksiBuku.SelectedItem()
-        'perpustakaan.koleksi.RemoveKoleksi(hapus_item)
+        Dim hapus_item = perpustakaan.LBKoleksiBuku.SelectedItem()
+        perpustakaan.koleksi.RemoveKoleksi(hapus_item)
         perpustakaan.koleksi.DeleteDataKoleksiByIdDatabase(perpustakaan.selectedTableKoleksi)
         Me.Close()
     End Sub

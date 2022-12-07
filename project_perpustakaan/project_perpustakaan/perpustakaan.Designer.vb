@@ -111,9 +111,11 @@ Partial Class perpustakaan
         '
         'DataGridKoleksi
         '
+        Me.DataGridKoleksi.AllowUserToAddRows = False
         Me.DataGridKoleksi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridKoleksi.Location = New System.Drawing.Point(476, 62)
         Me.DataGridKoleksi.Name = "DataGridKoleksi"
+        Me.DataGridKoleksi.ReadOnly = True
         Me.DataGridKoleksi.RowTemplate.Height = 25
         Me.DataGridKoleksi.Size = New System.Drawing.Size(478, 412)
         Me.DataGridKoleksi.TabIndex = 5

@@ -10,6 +10,9 @@
     <Compile Update="hapusKoleksi.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="hapusListKoleksi.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="infoTambahKoleksi.vb">
       <SubType>Form</SubType>
     </Compile>

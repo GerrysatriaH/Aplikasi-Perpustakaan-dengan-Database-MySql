@@ -28,6 +28,8 @@ Partial Class daftar
         Me.LblUsername = New System.Windows.Forms.Label()
         Me.LblDaftar = New System.Windows.Forms.Label()
         Me.BtnDaftarUser = New System.Windows.Forms.Button()
+        Me.BtnBack = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'TxtDaftarPassword
@@ -86,11 +88,34 @@ Partial Class daftar
         Me.BtnDaftarUser.Text = "Daftar"
         Me.BtnDaftarUser.UseVisualStyleBackColor = True
         '
+        'BtnBack
+        '
+        Me.BtnBack.BackgroundImage = Global.project_perpustakaan.My.Resources.Resources.BtnBack
+        Me.BtnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnBack.ForeColor = System.Drawing.SystemColors.Control
+        Me.BtnBack.Location = New System.Drawing.Point(5, 4)
+        Me.BtnBack.Name = "BtnBack"
+        Me.BtnBack.Size = New System.Drawing.Size(31, 23)
+        Me.BtnBack.TabIndex = 10
+        Me.BtnBack.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(34, 8)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(32, 15)
+        Me.Label1.TabIndex = 11
+        Me.Label1.Text = "Back"
+        '
         'daftar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(619, 257)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.BtnBack)
         Me.Controls.Add(Me.BtnDaftarUser)
         Me.Controls.Add(Me.LblDaftar)
         Me.Controls.Add(Me.TxtDaftarPassword)
@@ -110,4 +135,6 @@ Partial Class daftar
     Friend WithEvents LblUsername As Label
     Friend WithEvents LblDaftar As Label
     Friend WithEvents BtnDaftarUser As Button
+    Friend WithEvents BtnBack As Button
+    Friend WithEvents Label1 As Label
 End Class

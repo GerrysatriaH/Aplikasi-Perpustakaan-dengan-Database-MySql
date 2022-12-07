@@ -1,22 +1,29 @@
-﻿
-Public Class perpustakaan
+﻿Public Class perpustakaan
 
     Public Shared koleksi As koleksi
 
     Dim selected As String
+    Public Shared selectedListBox
     Public Shared selectedTableKoleksi
     Public Shared selectedTableKoleksiNama
 
     Dim selectedRow As DataGridViewRow
 
     Public Sub New()
-
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
         koleksi = New koleksi()
         ReloadDataTableDatabase()
+    End Sub
+
+    Private Sub ClearSelectedListBox()
+        LBKoleksiBuku.ClearSelected()
+    End Sub
+
+    Private Sub ClearSelectedCell()
+        DataGridKoleksi.ClearSelection()
     End Sub
 
     Private Sub TambahKoleksiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TambahKoleksiToolStripMenuItem.Click
@@ -34,11 +41,10 @@ Public Class perpustakaan
         tambah.Show()
     End Sub
     Private Sub BtnMinus_Click(sender As Object, e As EventArgs) Handles BtnMinus.Click
-        Dim hapus = New hapusKoleksi()
-
+        'Dim hapus = New hapusKoleksi()
         selected = LBKoleksiBuku.SelectedItem()
         If selected IsNot Nothing Then
-            hapus.Show()
+            hapusListKoleksi.Show()
         Else
             MessageBox.Show("Pilih Koleksi yang ingin dihapus")
         End If
@@ -67,21 +73,21 @@ Public Class perpustakaan
     'End Sub
 
     Private Sub perpustakaan_Activated(sender As Object, e As EventArgs) Handles Me.Activated
-        'LBKoleksiBuku.Items.Clear()
-        'For Each koll In koleksi.getKoleksiItem
-        '    LBKoleksiBuku.Items.Add(koll)
-        'Next
-        'UpdateDataTableArrayList()s
         ReloadDataTableDatabase()
+        ReloadDataListKoleksi()
+        ClearSelectedListBox()
+        ClearSelectedCell()
     End Sub
 
     Private Sub DataGridKoleksi_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridKoleksi.CellClick
         'selectedTableKoleksi = DataGridKoleksi.CurrentRow.Index
-        Dim index As Integer = e.RowIndex
-        selectedRow = DataGridKoleksi.Rows(index)
+        If e.RowIndex > -1 Then
+            Dim index As Integer = e.RowIndex
+            selectedRow = DataGridKoleksi.Rows(index)
 
-        selectedTableKoleksi = selectedRow.Cells(0).Value
-        selectedTableKoleksiNama = selectedRow.Cells(1).Value
+            selectedTableKoleksi = selectedRow.Cells(0).Value
+            selectedTableKoleksiNama = selectedRow.Cells(1).Value
+        End If
     End Sub
 
     'Private Sub BtnSelect_Click(sender As Object, e As EventArgs)
@@ -109,6 +115,10 @@ Public Class perpustakaan
 
     Private Sub ReloadDataTableDatabase()
         DataGridKoleksi.DataSource = koleksi.GetDataKoleksiDatabase()
+    End Sub
+
+    Private Sub ReloadDataListKoleksi()
+        LBKoleksiBuku.DataSource = koleksi.GetListNamaKoleksi()
     End Sub
 
     Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
@@ -147,26 +157,34 @@ Public Class perpustakaan
     End Sub
 
     Private Sub BtnSelect_Click(sender As Object, e As EventArgs) Handles BtnSelect.Click
-        Dim selectedKoleksi As List(Of String) = koleksi.GetDataKoleksiByIDDatabase(selectedTableKoleksi)
+        Try
+            Dim selectedKoleksi As List(Of String) = koleksi.GetDataKoleksiByIDDatabase(selectedTableKoleksi)
 
-        koleksi.dirGambarBukuProperty = selectedKoleksi(2)
+            koleksi.dirGambarBukuProperty = selectedKoleksi(2)
 
-        koleksi.namaKoleksiProperty = selectedKoleksi(1)
-        koleksi.jenisKoleksiProperty = selectedKoleksi(5)
-        koleksi.deskripsiKoleksiProperty = selectedKoleksi(3)
-        koleksi.penerbitProperty = selectedKoleksi(4)
-        koleksi.tahunTerbitProperty = selectedKoleksi(6)
-        koleksi.lokasiProperty = selectedKoleksi(7)
-        koleksi.tanggalMasukKoleksiProperty = selectedKoleksi(8)
-        koleksi.stockProperty = selectedKoleksi(9)
-        koleksi.bahasaProperty = selectedKoleksi(10)
-        Dim data_kategori As List(Of String) = koleksi.ConvertStringToKoleksi(selectedKoleksi(11))
+            koleksi.namaKoleksiProperty = selectedKoleksi(1)
+            koleksi.jenisKoleksiProperty = selectedKoleksi(5)
+            koleksi.deskripsiKoleksiProperty = selectedKoleksi(3)
+            koleksi.penerbitProperty = selectedKoleksi(4)
+            koleksi.tahunTerbitProperty = selectedKoleksi(6)
+            koleksi.lokasiProperty = selectedKoleksi(7)
+            koleksi.tanggalMasukKoleksiProperty = selectedKoleksi(8)
+            koleksi.stockProperty = selectedKoleksi(9)
+            koleksi.bahasaProperty = selectedKoleksi(10)
+            Dim data_kategori As List(Of String) = koleksi.ConvertStringToKoleksi(selectedKoleksi(11))
 
-        For Each info_kategori In data_kategori
-            koleksi.AddKategori(info_kategori)
-        Next
+            For Each info_kategori In data_kategori
+                koleksi.AddKategori(info_kategori)
+            Next
 
-        Dim infoTambah = New infoTambahKoleksi()
-        infoTambah.Show()
+            Dim infoTambah = New infoTambahKoleksi()
+            infoTambah.Show()
+        Catch ex As Exception
+            MessageBox.Show("Pilih Data yang ingin ditampilkan !!")
+        End Try
+    End Sub
+
+    Private Sub LBKoleksiBuku_Click(sender As Object, e As EventArgs) Handles LBKoleksiBuku.Click
+        selectedListBox = LBKoleksiBuku.SelectedItem
     End Sub
 End Class

@@ -389,4 +389,49 @@ Public Class koleksi
             dbConn.Dispose()
         End Try
     End Function
+
+    'Untuk mendapatkan nama koleksi dan disimpan ke listbox
+    Public Function GetListNamaKoleksi() As List(Of String)
+        Dim result As New List(Of String)
+
+        dbConn.ConnectionString = "server =" + server + ";" + "user id =" + username + ";" _
+            + "password=" + password + ";" + "database=" + database
+        dbConn.Open()
+
+        sqlCommand.Connection = dbConn
+        sqlQuery = "SELECT nama_koleksi FROM koleksi"
+        sqlRead = sqlCommand.ExecuteReader
+
+        While sqlRead.Read
+            result.Add(sqlRead.GetString(1).ToString())
+        End While
+
+        sqlRead.Close()
+        dbConn.Close()
+        Return result
+    End Function
+
+    Public Function DeleteDataKoleksiByNamaKoleksi(nama As String)
+        dbConn.ConnectionString = "server =" + server + ";" + "user id =" + username + ";" _
+            + "password=" + password + ";" + "database=" + database
+
+        Try
+            dbConn.Open()
+            sqlCommand.Connection = dbConn
+            sqlQuery = "DELETE FROM koleksi WHERE nama_koleksi='" & nama & "'"
+
+            Debug.WriteLine(sqlQuery)
+
+            sqlCommand = New MySqlCommand(sqlQuery, dbConn)
+            sqlRead = sqlCommand.ExecuteReader
+            dbConn.Close()
+
+            sqlRead.Close()
+            dbConn.Close()
+        Catch ex As Exception
+            Return ex.Message
+        Finally
+            dbConn.Dispose()
+        End Try
+    End Function
 End Class
